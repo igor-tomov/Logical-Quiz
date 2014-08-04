@@ -1,0 +1,42 @@
+@board-bg-color: #ddd;
+@game-variant-height: 180px;
+
+.game-layout{
+  .game-board{
+    .game-variant{
+      display: table;
+      height: @game-variant-height / 3px;
+      cursor: pointer;
+      margin-bottom: 5%;
+
+      .thumbnail{
+        display: table-cell;
+        vertical-align: middle;
+        text-decoration: none;
+
+        h4{
+          font-family: "Lato";
+          font-size: 14px;
+          font-weight: 800;
+          text-align: center;
+        }
+      }
+
+      @media (min-width: @screen-sm) {
+        height: @game-variant-height / 2px;
+
+        .thumbnail h4{
+          font-size: 16px;
+        }
+      }
+
+      @media (min-width: @screen-md) {
+        height: @game-variant-height;
+
+        .thumbnail h4{
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
