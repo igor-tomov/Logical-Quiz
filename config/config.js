@@ -1,4 +1,5 @@
 var path = require('path'),
+    fs   = require('fs'),
     rootPath = path.normalize(__dirname + '/..'),
     env = process.env.NODE_ENV || 'development';
 
@@ -9,8 +10,8 @@ var config = {
       name: 'logical-quiz'
     },
     port: 3000,
-    db: 'mongodb://localhost/logical-quiz-development'
-    
+    db: 'mongodb://localhost/logical-quiz-development',
+    pkg: JSON.parse( fs.readFileSync( "package.json" ) )
   },
 
   test: {
