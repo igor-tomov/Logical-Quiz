@@ -1,0 +1,28 @@
+extends layout
+
+block css
+    link(rel='stylesheet', href='/styles/css/dist.#{version}.css')
+
+block append js
+    script(src='/bower_components/requirejs/require.js', data-main='/js/main.js')
+
+block content
+    .site-wrapper
+        .site-wrapper-inner
+            .container
+                // "front-layout" component
+                section.row.hide.front-layout(data-aura-component="front-layout")
+                    .col-md-8.col-md-offset-1.col-xs-12
+                        h1 Logical quiz
+                        h2 Welcome to awesome logical quiz
+                        p.lead
+                            | Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
+                        p.lead
+                            a#game-start.btn.btn-lg.btn-default(href='#') Get started
+                // END: "front-layout" component
+        footer.mastfoot
+            .inner
+                p Here should be some footer content
+    // "load-state" component
+    .load-state.hide(data-aura-component='load-state')
+    // END: "load-state" component
