@@ -1,11 +1,22 @@
-extends layout
-
-block css
-    link(rel='stylesheet', href='/styles/css/dist.#{version}.css')
-
-block append js
-    script(src='/bower_components/requirejs/require.js', data-main='/js/main.js')
-block content
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width')
+        title= title
+        block css
+            if env == 'production' || env == 'test'
+                link(rel='stylesheet', href='/styles/css/dist.#{version}.min.css')
+            else
+                link(rel='stylesheet', href='/styles/css/dist.#{version}.css')
+        block js
+            if env == 'production' || env == 'test'
+                script(src='/bower_components/requirejs/require.js')
+                script(src='/js/build/dist.#{version}.js')
+            else
+                script(src='http://localhost:35729/livereload.js')
+                script(src='/bower_components/requirejs/require.js', data-main='/js/main.js')
+body
     .site-wrapper
         .site-wrapper-inner
             // "front-layout" component
