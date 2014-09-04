@@ -21,6 +21,7 @@ module.exports = function (grunt) {
                       " * <Component description>\n" +
                       " */\n" +
                       "define( [], function(){\n" +
+                      "    'use strict';\n" +
                       "    return {\n" +
                       "        initialize: function(){\n" +
                       "            // enjoy...\n" +

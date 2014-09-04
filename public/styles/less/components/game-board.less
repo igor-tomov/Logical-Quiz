@@ -1,21 +1,57 @@
 @board-bg-color: #ddd;
-@game-variant-height: 180px;
+
+@game-md-case-height: 180px;
+@game-ms-case-height: 90px;
+@game-xs-case-height: 60px;
+@case-margin-bottom: 5%;
+
 
 .game-layout{
+
+  /* below class is temporary solution */
+  .game-board-wrapper{
+    min-height: 307px;
+
+    @media (min-width: @screen-sm) {
+      min-height: 255px;
+    }
+
+    @media (min-width: @screen-md) {
+      min-height: 229px;
+    }
+  }
+
   .game-board{
-    .game-variant{
+    &:empty{
+      display: block;
+      visibility: hidden;
+      height: @game-xs-case-height * 4;
+      margin: 0 0 @case-margin-bottom * 4 0;
+
+      @media ( min-width: @screen-sm ) {
+        height: @game-ms-case-height * 2;
+        margin: 0 0 @case-margin-bottom * 2 0;
+      }
+
+      @media ( min-width: @screen-md ) {
+        height: @game-md-case-height;
+        margin: 0 0 @case-margin-bottom 0;
+      }
+    }
+
+    .game-case {
       display: table;
-      height: @game-variant-height / 3px;
-      cursor: pointer;
+      height: @game-xs-case-height;
       margin-bottom: 5%;
 
       .thumbnail{
         display: table-cell;
         vertical-align: middle;
         text-decoration: none;
+        cursor: pointer;
 
         h4{
-          font-family: "Lato";
+          font-family: @text-font;
           font-size: 14px;
           font-weight: 800;
           text-align: center;
@@ -23,7 +59,7 @@
       }
 
       @media (min-width: @screen-sm) {
-        height: @game-variant-height / 2px;
+        height: @game-ms-case-height;
 
         .thumbnail h4{
           font-size: 16px;
@@ -31,12 +67,31 @@
       }
 
       @media (min-width: @screen-md) {
-        height: @game-variant-height;
+        height: @game-md-case-height;
 
         .thumbnail h4{
           font-size: 18px;
         }
       }
     }
+
+    .height-holder{
+      width: 1px;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+    }
+
+    [data-case-index].success{
+      border-color: @brand-success !important;
+    }
+
+    [data-case-index].fail{
+      border-color: @brand-danger !important;
+    }
+  }
+
+  .game-board.conceal{
+    display: none;
   }
 }

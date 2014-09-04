@@ -1,0 +1,7 @@
+<div class="game-case-list">
+    <% for ( var i = 0; i < cases_list.length; i++ ){ %>
+    <div class="col-md-3 col-sm-6 col-xs-12 game-case">
+        <a class="thumbnail" data-case-index="<%= i %>"><h4><span class="text-muted"><%= cases_list[i] %></span></h4></a>
+    </div>
+    <% } %>
+</div>

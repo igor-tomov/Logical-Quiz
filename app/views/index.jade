@@ -8,36 +8,19 @@ block append js
 block content
     .site-wrapper
         .site-wrapper-inner
-            .container
-                // "front-layout" component
-                section.row.hide.front-layout(_data-aura-component="front-layout")
-                    .col-md-8.col-md-offset-1.col-xs-12
-                        h1 Logical quiz
-                        h2 Welcome to awesome logical quiz
-                        p.lead
-                            | Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
-                        p.lead
-                            a#game-start.btn.btn-lg.btn-default(href='#') Get started
-                // END: "front-layout" component
-                section.row.hide.game-layout(data-aura-component='game-layout')
-                    .col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-xs-10.col-xs-offset-1
-                        .row.game-board(data-aura-component='game-board')
-                            .col-md-3.col-sm-6.col-xs-12.game-variant
-                                a.thumbnail
-                                    h4 Content
-                            .col-md-3.col-sm-6.col-xs-12.game-variant
-                                a.thumbnail
-                                    h4 Content
-                            .col-md-3.col-sm-6.col-xs-12.game-variant
-                                a.thumbnail
-                                    h4 Some very very very long string. Some very very very long string
-                            .col-md-3.col-sm-6.col-xs-12.game-variant
-                                a.thumbnail
-                                    h4
-                                        | Cover is a one-page template for building simple and beautiful home pages.
+            // "front-layout" component
+            include front
+            // END: "front-layout" component
+
+            // "game-layout" component
+            include game/layout
+            // END: "game-layout" component
+        // footer
         footer.mastfoot
             .inner
                 p Here should be some footer content
+        // END: footer
+
     // "load-state" component
     .load-state.hide(data-aura-component='load-state')
     // END: "load-state" component

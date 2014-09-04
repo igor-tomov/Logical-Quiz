@@ -25,10 +25,22 @@ define(
         return {
             initialize: function( app ){
                 var velocity  = $.fn.velocity,
-                    prototype = app.core.Components.Base.prototype;
+                    slice     = Array.prototype.slice;
 
-                prototype.animate = function(){
+                // add to Component prototype
+                app.core.Components.Base.prototype.animate = function(){
                     return velocity.apply( this.$el, arguments ).promise();
+                }
+
+                // add to sandbox
+                app.sandbox.dom.animate = function( target ){
+                    var args = slice.call( arguments, 1 );
+
+                    if ( ! ( target instanceof $ ) ){
+                        target = $( target );
+                    }
+
+                    return velocity.apply( target, args ).promise();
                 }
             }
         }

@@ -4,6 +4,8 @@ define( ["underscore"], function( _ ){
      * Default options for Layout component
      */
     var defaults = {
+        openTriggerEvent: null,
+
         open: {
             emitEvent: "layout:open",
 
@@ -62,15 +64,17 @@ define( ["underscore"], function( _ ){
     var Layout = {
         open: function(){
             var opts        = this.options.open,
-                animateOpts = opts.animate;
+                animateOpts = opts.animate,
+                sandbox     = this.sandbox;
 
+            // emit "Open layout" event
+            this.sandbox.emit( opts.emitEvent );
+
+            // show target element
             this.$el.removeClass( "hide" );
 
-            if ( animateOpts.enable ){
-                this.animate( animateOpts.easing, animateOpts.duration );
-            }
-
-            this.sandbox.emit( opts.emitEvent );
+            return sandbox.data
+                          .when( animateOpts.enable ? this.animate( animateOpts.easing, animateOpts.duration ) : true );
         },
 
         close: function( silent ){
@@ -78,7 +82,6 @@ define( ["underscore"], function( _ ){
                 opts        = this.options.close,
                 sandbox     = this.sandbox,
                 animateOpts = opts.animate;
-
 
             return sandbox.data
                           .when( animateOpts.enable ? this.animate( animateOpts.easing, animateOpts.duration ) : true )
@@ -96,9 +99,17 @@ define( ["underscore"], function( _ ){
         initialize: function( app ){
             app.components.addType( "layout", Layout );
 
-            app.components.before( 'initialize', function(){
-                if ( this.type === "layout" ){
-                    deepExtend( this.options, defaults );
+            app.components.before( 'initialize', function( opts ){
+                if ( this.type !== "layout" ){
+                    return;
+                }
+
+                // merge current options with default layout options
+                deepExtend( opts, defaults );
+
+                //  bind "open" trigger on specific event
+                if ( opts.openTriggerEvent ){
+                    this.sandbox.on( opts.openTriggerEvent, _.bind( this.open , this ) );
                 }
             });
         }

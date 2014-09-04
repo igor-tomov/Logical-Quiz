@@ -7,6 +7,8 @@ define( [ "underscore" ], function( _ ){
         type: "layout",
 
         options: {
+            openTriggerEvent: "front:return",
+
             open: {
                 animate: {
                     easing: "transition.slideLeftIn"
@@ -20,8 +22,7 @@ define( [ "underscore" ], function( _ ){
             }
         },
 
-        initialize: function( opts ){
-            this.constructor.__super__.constructor.__super__.initialize.call( this, opts );
+        initialize: function(){
             this.open();
         },
 
@@ -38,7 +39,7 @@ define( [ "underscore" ], function( _ ){
                 this.component
                     .close()
                     .then( function(){
-                        sandbox.emit( "game:start" );
+                        sandbox.emit( "game:launch" );
                     });
             }
         }
