@@ -67,6 +67,25 @@ module.exports = function (grunt) {
         }
     },
 
+    requirejs: {
+        compile: {
+            options: {
+                baseUrl: "public/",
+                //mainConfigFile: "public/js/main.js",
+                name: "js/main",
+                out: "public/js/build/dist.<%= pkg.version %>.js"
+            }
+        }
+    },
+
+    cssmin: {
+        dist: {
+            files: {
+                "public/styles/css/dist.<%= pkg.version %>.min.css": "public/styles/css/dist.<%= pkg.version %>.css"
+            }
+        }
+    },
+
     watch: {
       options: {
         nospawn: true,
@@ -372,4 +391,5 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', ['develop', 'watch']);
+  grunt.registerTask('prod', ['requirejs', 'less:dist', 'cssmin:dist']);
 };
