@@ -1,8 +1,6 @@
 var express = require('express'),
     config  = require('../../config/config'),
-    router = express.Router(),
-    mongoose = require('mongoose'),
-    Quiz = mongoose.model('Quiz');
+    router = express.Router();
 
 module.exports = function (app) {
   app.use('/', router);
