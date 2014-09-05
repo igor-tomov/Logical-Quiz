@@ -1,1 +1,92 @@
-[{"invalid":1,"cases":["Twitter","Skype","Facebook","Instagram"]},{"invalid":2,"cases":["Polymorphism","Encapsulation","Interpolation","Inheritance"]},{"invalid":1,"cases":["Albert Einstein","Immanuel Kant","Isaac Newton","Max Planck"]},{"invalid":0,"cases":["Franz Kafka","Fyodor Dostoyevsky","Anton Chekhov","Leo Tolstoy"]},{"invalid":1,"cases":["Leonhard Euler","Arthur Schopenhauer","Carl Friedrich Gauss","Joseph-Louis Lagrange"]},{"invalid":2,"cases":["Google Chrome","Safari","Skype","Mozilla Firefox"]},{"invalid":3,"cases":["Carl Gustav Jung","Sigmund Freud","Erich Seligmann Fromm","Friedrich Wilhelm Nietzsche"]},{"invalid":1,"cases":["Sweden","Switzerland","Danish","Norwegian"]},{"invalid":3,"cases":["Larry Wall","Linus Torvalds","Guido van Rossum","Steve Ballmer"]},{"invalid":3,"cases":["Larry Ellison","Sergey Brin","Linus Torvalds","Bill Gates"]}]
+[
+    {
+        "target": 1,
+        "cases": [
+            "Twitter",
+            "Skype",
+            "Facebook",
+            "Instagram"
+        ]
+    },
+    {
+        "target": 2,
+        "cases": [
+            "Polymorphism",
+            "Encapsulation",
+            "Interpolation",
+            "Inheritance"
+        ]
+    },
+    {
+        "target": 1,
+        "cases": [
+            "Albert Einstein",
+            "Immanuel Kant",
+            "Isaac Newton",
+            "Max Planck"
+        ]
+    },
+    {
+        "target": 0,
+        "cases": [
+            "Franz Kafka",
+            "Fyodor Dostoyevsky",
+            "Anton Chekhov",
+            "Leo Tolstoy"
+        ]
+    },
+    {
+        "target": 1,
+        "cases": [
+            "Leonhard Euler",
+            "Arthur Schopenhauer",
+            "Carl Friedrich Gauss",
+            "Joseph-Louis Lagrange"
+        ]
+    },
+    {
+        "target": 2,
+        "cases": [
+            "MySQL",
+            "Eclipse",
+            "Oracle",
+            "postgreSQL"
+        ]
+    },
+    {
+        "target": 3,
+        "cases": [
+            "Carl Gustav Jung",
+            "Sigmund Freud",
+            "Erich Seligmann Fromm",
+            "Friedrich Wilhelm Nietzsche"
+        ]
+    },
+    {
+        "target": 1,
+        "cases": [
+            "Sweden",
+            "Switzerland",
+            "Danish",
+            "Norwegian"
+        ]
+    },
+    {
+        "target": 3,
+        "cases": [
+            "Larry Wall",
+            "Linus Torvalds",
+            "Guido van Rossum",
+            "Steve Ballmer"
+        ]
+    },
+    {
+        "target": 0,
+        "cases": [
+            "Hungary",
+            "Montenegro",
+            "Serbia",
+            "Croatia"
+        ]
+    }
+]
