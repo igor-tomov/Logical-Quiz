@@ -31,7 +31,7 @@ module.exports = function (grunt) {
 
       templates: {
           path: "public/templates/components",
-          files: [ "<%= name %>/", "<%= name %>/index.html" ],
+          files: [ "<%= name %>/", "<%= name %>/index.html" ]
       },
 
       styles: {
@@ -390,6 +390,6 @@ module.exports = function (grunt) {
       ));
   });
 
-  grunt.registerTask('default', ['develop', 'watch']);
+  grunt.registerTask('live-server', ['less:dist', 'develop', 'watch']);
   grunt.registerTask('prod', ['requirejs', 'less:dist', 'cssmin:dist']);
 };
