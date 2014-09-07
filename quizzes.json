@@ -45,7 +45,7 @@
         ]
     },
     {
-        "target": 2,
+        "target": 1,
         "cases": [
             "MySQL",
             "Eclipse",
