@@ -19,7 +19,7 @@ var config = {
     app: {
       name: 'logical-quiz'
     },
-    port: 3000,
+    port: process.env.PORT || 3000,
     db: 'mongodb://localhost/logical-quiz-development',
     pkg: JSON.parse( fs.readFileSync( "package.json" ) )
   },
@@ -29,7 +29,7 @@ var config = {
     app: {
       name: 'logical-quiz'
     },
-    port: 3000,
+    port: process.env.PORT || 3000,
     db: 'mongodb://localhost/logical-quiz-production'
     
   }
