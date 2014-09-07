@@ -1,8 +1,5 @@
-'use strict';
 var NODE_ENV     = process.env.NODE_ENV || "development";
 var EventEmitter = require('events').EventEmitter;
-
-console.log( "NODE_ENV: ", NODE_ENV );
 
 module.exports = function (grunt) {
   // show elapsed time at the end
