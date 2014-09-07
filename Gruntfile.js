@@ -1,12 +1,14 @@
 'use strict';
-
+var NODE_ENV     = process.env.NODE_ENV || "development";
 var EventEmitter = require('events').EventEmitter;
+
+console.log( "NODE_ENV: ", NODE_ENV );
 
 module.exports = function (grunt) {
   // show elapsed time at the end
   require('time-grunt')(grunt);
   // load all grunt tasks
-  require('load-grunt-tasks')(grunt);
+  require('load-grunt-tasks')(grunt, {scope: NODE_ENV != "development" ? "dependencies" : null});
 
   var reloadPort = 35729, files;
 

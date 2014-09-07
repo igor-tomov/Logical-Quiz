@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
-    "start": "./node_modules/grunt-cli/bin/grunt prod && NODE_ENV=test node ./app.js"
+    "start": "export NODE_ENV=test && ./node_modules/grunt-cli/bin/grunt prod && node ./app.js"
   },
   "dependencies": {
     "express": "~4.2.0",
