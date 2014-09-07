@@ -1,7 +1,6 @@
 'use strict';
 
-var request      = require('request'),
-    EventEmitter = require('events').EventEmitter;
+var EventEmitter = require('events').EventEmitter;
 
 module.exports = function (grunt) {
   // show elapsed time at the end
@@ -123,7 +122,9 @@ module.exports = function (grunt) {
   files = grunt.file.expand(files);
 
   grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
-    var done = this.async();
+    var request = require('request');
+    var done    = this.async();
+
     setTimeout(function () {
       request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function(err, res) {
           var reloaded = !err && res.statusCode === 200;
