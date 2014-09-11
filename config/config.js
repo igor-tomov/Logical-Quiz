@@ -10,7 +10,7 @@ var config = {
       name: 'logical-quiz'
     },
     port: 3000,
-    db: 'mongodb://localhost/logical-quiz-development',
+    db: 'mongodb://localhost/logical-quiz',
     pkg: JSON.parse( fs.readFileSync( "package.json" ) )
   },
 
@@ -20,7 +20,7 @@ var config = {
       name: 'logical-quiz'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/logical-quiz-development',
+    db: 'mongodb://stepennwolf:xCs495scX765ovER@kahana.mongohq.com:10091/app29299981',
     pkg: JSON.parse( fs.readFileSync( "package.json" ) )
   },
 
