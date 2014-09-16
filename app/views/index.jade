@@ -18,14 +18,14 @@ html(lang='en')
                 script(src='/bower_components/requirejs/require.js', data-main='/js/main.js')
 body
     .site-wrapper
-        .site-wrapper-inner
-            // "front-layout" component
-            include front
-            // END: "front-layout" component
+        // "front-layout" component
+        include front
+        // END: "front-layout" component
 
-            // "game-layout" component
-            include game/layout
-            // END: "game-layout" component
+        // "game-layout" component
+        include game/layout
+        // END: "game-layout" component
+
         // footer
         footer.mastfoot
             .inner
