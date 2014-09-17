@@ -23,7 +23,12 @@ define( [ "underscore" ], function( _ ){
         },
 
         initialize: function(){
-            this.open();
+            //this.open();
+
+            this.sandbox.emit( "layout:open" );
+            this.$el
+                .removeClass( "hide" )
+                .animate( "transition.slideLeftIn", { duration: 400, display: "table" } )
         },
 
         View: {

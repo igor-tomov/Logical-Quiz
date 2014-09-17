@@ -30,7 +30,7 @@ define(
                 // add to Component prototype
                 app.core.Components.Base.prototype.animate = function(){
                     return velocity.apply( this.$el, arguments ).promise();
-                }
+                };
 
                 // add to sandbox
                 app.sandbox.dom.animate = function( target ){
@@ -42,6 +42,9 @@ define(
 
                     return velocity.apply( target, args ).promise();
                 }
+
+                // reassign jQuery.animate to velocity.js
+                $.fn.animate = $.fn.velocity;
             }
         }
     }
