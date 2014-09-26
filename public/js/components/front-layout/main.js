@@ -4,7 +4,7 @@
 define( [ "underscore" ], function( _ ){
 
     return {
-        type: "layout",
+        type: "flux",
 
         options: {
             openTriggerEvent: "front:return",
