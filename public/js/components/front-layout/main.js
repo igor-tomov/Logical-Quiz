@@ -1,29 +1,15 @@
 /**
  * Component manages front layout of application
  */
-define( [ "underscore" ], function( _ ){
+define( [ "underscore", "./actions/main" ], function( _, Actions ){
 
     return {
-        type: "flux",
-
-        options: {
-            openTriggerEvent: "front:return",
-
-            open: {
-                animate: {
-                    easing: "transition.slideLeftIn"
-                }
-            },
-
-            close: {
-                animate: {
-                    easing: "transition.slideRightOut"
-                }
-            }
-        },
+        type: "layout",
 
         initialize: function(){
             //this.open();
+
+            Actions.startGame.listen( this._onStartGame, this );
 
             this.sandbox.emit( "layout:open" );
             this.$el
@@ -31,22 +17,13 @@ define( [ "underscore" ], function( _ ){
                 .animate( "transition.slideLeftIn", { duration: 400, display: "table" } )
         },
 
-        View: {
-            events: {
-                "click #game-start": "start"
-            },
+        _onStartGame: function(){
+            var sandbox = this.sandbox;
 
-            start: function( event ){
-                var sandbox = this.sandbox;
-
-                event.preventDefault();
-
-                this.component
-                    .close()
-                    .then( function(){
-                        sandbox.emit( "game:launch" );
-                    });
-            }
+            this.close()
+                .then( function(){
+                    sandbox.emit( "game:launch" );
+                });
         }
     }
 });

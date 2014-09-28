@@ -32,7 +32,7 @@ require( ["bower_components/aura/lib/aura"], function( Aura ){
        .use( "ext/aura-templates" )
        .use( "ext/aura-velocityjs" )
        .use( "ext/layout-component" )
-       .use( "ext/aura-flux" );
+       .use( "ext/aura-react-reflux" );
 
     // start app
     app.start();
