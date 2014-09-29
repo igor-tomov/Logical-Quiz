@@ -84,6 +84,20 @@ module.exports = function (grunt) {
         }
     },
 
+    react: {
+        dist: {
+            files: [
+                {
+                    expand: true,
+                    cwd: "public/js/components",
+                    src: [ "*/views/*.jsx" ],
+                    dest: "public/js/components",
+                    ext: ".js"
+                }
+            ]
+        }
+    },
+
     watch: {
       options: {
         nospawn: true,
@@ -100,6 +114,11 @@ module.exports = function (grunt) {
 
       js_front: {
           files: "public/js/**/*.js"
+      },
+
+      react:{
+          files: "public/js/components/*/views/*.jsx",
+          tasks: [ "react:dist" ]
       },
 
       views: {
