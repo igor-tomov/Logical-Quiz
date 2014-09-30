@@ -409,6 +409,6 @@ module.exports = function (grunt) {
       ));
   });
 
-  grunt.registerTask('live-server', ['less:dist', 'develop', 'watch']);
-  grunt.registerTask('prod', ['requirejs', 'less:dist', 'cssmin:dist']);
+  grunt.registerTask('live-server', ['less:dist', 'react:dist', 'develop', 'watch']);
+  grunt.registerTask('prod', ['less:dist', 'react:dist', 'requirejs', 'cssmin:dist']);
 };

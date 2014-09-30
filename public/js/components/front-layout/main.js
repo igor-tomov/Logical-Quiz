@@ -1,11 +1,9 @@
 /**
  * Component manages front layout of application
  */
-define( [ "underscore", "./actions/main", "./views/main" ], function( _, Actions, view ){
+define( [ "underscore", "./actions/mainActions", "./views/mainView" ], function( _, Actions, view ){
 
     return {
-        type: "layout",
-
         initialize: function(){
             Actions.startGame.listen( this._onStartGame, this );
 
@@ -13,12 +11,8 @@ define( [ "underscore", "./actions/main", "./views/main" ], function( _, Actions
         },
 
         _onStartGame: function(){
-            var sandbox = this.sandbox;
-
-            this.close()
-                .then( function(){
-                    sandbox.emit( "game:launch" );
-                });
+            this.$el.addClass( "hide" );
+            this.sandbox.emit( "game:launch" );
         }
     }
 });

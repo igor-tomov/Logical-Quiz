@@ -13,7 +13,7 @@ require.config({
     }
 });
 
-define( [ "react" ], function( React ){
+define( [ "underscore", "react" ], function( _, React ){
     return function( app ){
         var basePrototype = app.core.Components.Base.prototype;
 
@@ -21,12 +21,19 @@ define( [ "react" ], function( React ){
         React.initializeTouchEvents( true );
 
         /**
-         * Render React component to root Aura component's element
+         * Render React component to Aura component's element
          *
-         * @param {React} component
+         * @param {Function} component - React component
+         * @param {Object} [props] - input properties to appropriate component
          */
-        basePrototype.renderComponent = function (component) {
-            React.renderComponent(component, this.$el[0]);
+        basePrototype.renderComponent = function ( component, props ) {
+            var _props = { locale: this.getLocale() };
+
+            if ( _.isObject( props ) ){
+                _.defaults( _props, props );
+            }
+
+            React.renderComponent( component( _props ), this.$el[0] );
         };
     }
 });
