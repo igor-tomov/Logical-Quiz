@@ -1,27 +1,22 @@
 /** @jsx React.DOM */
-define( [ "react", "../actions/mainActions" ], function( React, Actions ){
-    var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+define( [ "react", "../actions/mainActions", "utils/react.animation" ], function( React, Actions, CSSAnimate ){
+    console.log( CSSAnimate );
 
     var FrontContent = React.createClass({
+        mixins: [ CSSAnimate ],
 
         getInitialState: function(){
             return {
-                classes: [ "front-content" ]
+                className: "front-content",
+                animateEnter: "fadeInLeft"
             };
         },
 
-        componentDidMount: function(){
-            var classes = this.state.classes.concat( [ "animated", "fadeInLeft" ] );
-
-            this.setState({ classes: classes });
-        },
-
         render: function(){
-            var locale  = this.props.locale,
-                classes = this.state.classes.join( " " );
+            var locale  = this.props.locale;
 
             return (
-                <div className={classes}>
+                <div className={this.state.className}>
                     <h1>{locale.mainTitle}</h1>
                     <h2>{locale.subTitle}</h2>
                     <p className="lead">{locale.desc}</p>
@@ -32,8 +27,15 @@ define( [ "react", "../actions/mainActions" ], function( React, Actions ){
             );
         },
 
+        onAnimationEnd: function( event ){
+            if ( event.animationName === "fadeOutRight" ){
+                Actions.startGame();
+            }
+        },
+
         _onStart: function(){
-            Actions.startGame();
+            this.triggerAnimation( "fadeOutRight" );
+            //Actions.startGame();
         }
     });
 
