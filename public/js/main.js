@@ -28,12 +28,12 @@ require( ["bower_components/aura/lib/aura"], function( Aura ){
         });
 
     // include extensions
-    app.use( "ext/aura-backbone" )
+    app.use( "ext/aura-locale" )
+       .use( "ext/aura-backbone" )
        .use( "ext/aura-templates" )
        .use( "ext/aura-velocityjs" )
        .use( "ext/layout-component" )
-       .use( "ext/aura-react-reflux" )
-       .use( "ext/aura-locale" );
+       .use( "ext/aura-react-reflux" );
 
     // start app
     app.start();

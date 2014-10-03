@@ -8,6 +8,8 @@ define( [ "underscore", "./actions/mainActions", "./views/mainView" ], function(
             Actions.startGame.listen( this._onStartGame, this );
 
             this.renderComponent( view );
+
+            //this.$el.removeClass( "hide" );
         },
 
         _onStartGame: function(){
