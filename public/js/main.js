@@ -4,8 +4,9 @@ require.config({
     paths: {
         underscore: 'bower_components/underscore/underscore',
         jquery:     'bower_components/jquery/jquery',
-        utils:      'js/utils',
         ext:        'js/extensions',
+        utils:      'js/utils',
+        constants:  'js/constants',
         tpl:        'templates/components'
     },
 

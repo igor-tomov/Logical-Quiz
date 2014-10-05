@@ -1,20 +1,26 @@
 /**
  * Component manages front layout of application
  */
-define( [ "underscore", "./actions/mainActions", "./views/mainView" ], function( _, Actions, view ){
+define( [ "constants", "./actions/mainActions", "./views/mainView" ], function( constants, Actions, view ){
 
     return {
         initialize: function(){
+            this.sandbox.on( constants.FRONT_OPEN_EVENT, this.open, this );
             Actions.startGame.listen( this._onStartGame, this );
 
-            this.renderComponent( view );
+            this.open();
+        },
 
-            //this.$el.removeClass( "hide" );
+        open: function(){
+            this.$el.removeClass( "hide" );
+            this.renderComponent( view );
         },
 
         _onStartGame: function(){
             this.$el.addClass( "hide" );
-            this.sandbox.emit( "game:launch" );
+            this.removeComponent();
+
+            this.sandbox.emit( constants.GAME_LAUNCH_EVENT );
         }
     }
 });

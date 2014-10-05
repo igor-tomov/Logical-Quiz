@@ -35,5 +35,12 @@ define( [ "underscore", "react" ], function( _, React ){
 
             React.renderComponent( component( _props ), this.$el[0] );
         };
+
+        /**
+         * Remove React component from from current Aura component's element
+         */
+        basePrototype.removeComponent = function(){
+            React.unmountComponentAtNode( this.$el[0] );
+        }
     }
 });
