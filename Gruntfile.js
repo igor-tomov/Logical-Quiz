@@ -13,7 +13,7 @@ module.exports = function (grunt) {
   var componentConfig = {
       js: {
           path: "public/js/components",
-          files: [ "<%= name %>/", "<%= name %>/main.js" ],
+          files: [ "<%= name %>/", "<%= name %>/main.js", "<%= name %>/actions/", "<%= name %>/views/" ],
 
           template:   "/**\n" +
                       " * <Component description>\n" +
@@ -22,14 +22,9 @@ module.exports = function (grunt) {
                       "    'use strict';\n" +
                       "    return {\n" +
                       "        initialize: function(){\n" +
-                      "            // enjoy...\n" +
+                      "            // Lets Go...\n" +
                       "        }\n" +
                       "}});"
-      },
-
-      templates: {
-          path: "public/templates/components",
-          files: [ "<%= name %>/", "<%= name %>/index.html" ]
       },
 
       styles: {
@@ -165,33 +160,42 @@ module.exports = function (grunt) {
       var config  = componentConfig,
           args    = process.argv.slice( 3 ),
           skipArg = "--skip-%s",
-          type, componentItem;
+          type, item;
+
+
+      function inherit( Child, Parent ){
+          var proxy = function(){};
+
+          proxy.prototype = Parent.prototype;
+          Child.prototype = new proxy();
+
+          Child.prototype.constructor = Child;
+          Child.superclass  = Parent;
+      }
+
+
+      function BaseComponentItem( name, config ){
+          // check path exists
+          if ( ! grunt.file.exists( config.path ) ){
+              throw new Error( 'Path "' + config.path + '" does not exist' );
+          }
+
+          // save item name
+          this.name = name;
+
+          // create "Event Emitter" instance
+          this._eventEmitter = new EventEmitter;
+
+          // save config data
+          this._path  = config.path.replace( /\/$/, "" ) + "/";
+          this._files = Array.isArray( config.files ) ? config.files : [config.files];
+      }
 
       /**
-       * Namespace for objects, which is encapsulate managing of component items
+       * Base component item, encapsulates common logic
        */
-      var componentItems = {};
-
-      /**
-       * Default component item, encapsulates common logic
-       */
-      componentItems.__default__ = {
-          init: function( name, config ){
-              // check path exists
-              if ( ! grunt.file.exists( config.path ) ){
-                  throw new Error( 'Path "' + config.path + '" does not exist' );
-              }
-
-              // save item name
-              this.name = name;
-
-              // create "Event Emitter" instance
-              this._eventEmitter = new EventEmitter;
-
-              // save config data
-              this._path  = config.path.replace( /\/$/, "" ) + "/";
-              this._files = Array.isArray( config.files ) ? config.files : [config.files];
-          },
+      BaseComponentItem.prototype = {
+          constructor: BaseComponentItem,
 
           create: function(){
               var path    = this._path,
@@ -241,135 +245,123 @@ module.exports = function (grunt) {
           }
       };
 
-      // save reference to myself for child objects
-      componentItems.__default__.__super__ = componentItems.__default__;
-
       /**
        * JavaScript component item
        */
-      componentItems.js = Object.create( componentItems.__default__, {
-          init: {
-              value: function( name, config ){
-                  this.__super__.init.call( this, name, config );
+      function JSComponentItem( name, config ){
+          this.constructor.superclass.call( this, name, config );
+          this._template = config.template;
+      }
 
-                  this._template = config.template;
-              }
-          },
+      inherit( JSComponentItem, BaseComponentItem );
 
-          create: {
-              value: function(){
-                  var template = this._template;
+      JSComponentItem.prototype.create = function(){
+          var template = this._template;
 
-                  /**
-                   * Past boilerplate code to "main.js"
-                   * @param {String} filename
-                   */
-                  function putTemplate( filename ){
-                      if ( filename.search( /main.js$/ ) !== -1 ){
-                          grunt.file.write( filename, template );
-                      }
-                  }
-
-                  this._eventEmitter.on( "file:created", putTemplate );
-                  this.__super__.create.call( this );
-                  this._eventEmitter.removeListener( "file:created", putTemplate );
+          /**
+           * Put boilerplate code to "main.js"
+           * @param {String} filename
+           */
+          function putTemplate( filename ){
+              if ( filename.search( /main.js$/ ) !== -1 ){
+                  grunt.file.write( filename, template );
               }
           }
-      });
+
+          this._eventEmitter.on( "file:created", putTemplate );
+          this.constructor.superclass.prototype.create.call( this );
+          this._eventEmitter.removeListener( "file:created", putTemplate );
+      };
 
       /**
        * Style component item
        */
-      componentItems.styles =  Object.create( componentItems.__default__, {
-          includeLine: { value: "@import (less) 'components/%s.less';" },
-          endPointString: { value: '/** END: Components style */' },
+      function StyleComponentItem( name, config ){
+          this.constructor.superclass.call( this, name, config );
 
-          init: {
-              value: function( name, config ){
-                  this.__super__.init.call( this, name, config );
+          this._includeLine = this.includeLine.replace( "%s", name );
 
-                  this._includeLine = this.includeLine.replace( "%s", name );
+          // read style index file
+          if ( grunt.file.exists( config.indexFile ) ){
+              this._indexContent = grunt.file.read( config.indexFile ).split( /\r?\n/ );
+              this._indexFile    = config.indexFile;
+          }else{
+              throw new Error( 'Style index file "' + config.indexFile + '" is not found' );
+          }
+      }
 
-                  // read style index file
-                  if ( grunt.file.exists( config.indexFile ) ){
-                      this._indexContent = grunt.file.read( config.indexFile ).split( /\r?\n/ );
-                      this._indexFile    = config.indexFile;
-                  }else{
-                      throw new Error( 'Style index file "' + config.indexFile + '" is not found' );
-                  }
-              }
-          },
+      inherit( StyleComponentItem, BaseComponentItem );
 
-          create: {
-              value: function(){
-                  this.__super__.create.call( this );
-                  this.attach();
-              }
-          },
+      StyleComponentItem.prototype.includeLine = "@import (less) 'components/%s.less';";
+      StyleComponentItem.prototype.endPointString = '/** END: Components style */';
 
-          remove: {
-              value: function(){
-                  this.__super__.remove.call( this );
-                  this.detach();
-              }
-          },
 
-          save: {
-              value: function(){
-                  grunt.file.write( this._indexFile, this._indexContent.join( "\n" ) );
-              }
-          },
+      StyleComponentItem.prototype.create = function(){
+          this.constructor.superclass.prototype.create.call( this );
+          this.attach();
+      };
 
-          isAttached: {
-              value: function(){
-                  var pos = this._indexContent.indexOf( this._includeLine );
+      StyleComponentItem.prototype.remove = function(){
+          this.constructor.superclass.prototype.remove.call( this );
+          this.detach();
+      };
 
-                  return pos === -1 ? false : pos;
-              }
-          },
+      StyleComponentItem.prototype.save = function(){
+          grunt.file.write( this._indexFile, this._indexContent.join( "\n" ) );
+      };
 
-          attach: {
-              value: function(){
-                  var pos = this.isAttached(),
-                      endPoint;
+      StyleComponentItem.prototype.isAttached = function(){
+          var pos = this._indexContent.indexOf( this._includeLine );
+          return pos === -1 ? false : pos;
+      };
 
-                  if ( pos === false ){
-                      endPoint = this._indexContent.indexOf( this.endPointString );
-                      if ( endPoint !== -1 ){
-                          this._indexContent.splice( endPoint, null, this._includeLine );
-                          this.save();
+      StyleComponentItem.prototype.attach = function(){
+          var pos = this.isAttached(),
+              endPoint;
 
-                          grunt.log.ok( '"' + this.name + '.less" is attached to "' + this._indexFile + '"' );
-                      }
-                  }
-              }
-          },
+          if ( pos === false ){
+              endPoint = this._indexContent.indexOf( this.endPointString );
+              if ( endPoint !== -1 ){
+                  this._indexContent.splice( endPoint, null, this._includeLine );
+                  this.save();
 
-          detach: {
-              value: function(){
-                  var pos = this.isAttached();
-
-                  if ( pos !== false ){
-                      this._indexContent.splice( pos, 1 );
-                      this.save();
-
-                      grunt.log.ok( '"' + this.name + '.less" is detached from "' + this._indexFile + '"' );
-                  }
+                  grunt.log.ok( '"' + this.name + '.less" is attached to "' + this._indexFile + '"' );
               }
           }
-      });
+      };
+
+      StyleComponentItem.prototype.detach = function(){
+          var pos = this.isAttached();
+
+          if ( pos !== false ){
+              this._indexContent.splice( pos, 1 );
+              this.save();
+
+              grunt.log.ok( '"' + this.name + '.less" is detached from "' + this._indexFile + '"' );
+          }
+      };
 
       /**
        * Component item factory
        */
       function ComponentItemFactory( type, config ){
-          var componentItem = componentItems[type] ? componentItems[type] : componentItems.__default__;
+          //return componentItem;
+          var Constructor;
 
-          if ( typeof componentItem.init === "function" ){
-              componentItem.init( name, config );
+          switch ( type ){
+              case "js":
+                  Constructor = JSComponentItem;
+                  break;
+
+              case "styles":
+                  Constructor = StyleComponentItem;
+                  break;
+
+              default:
+                  Constructor = BaseComponentItem;
           }
 
-          return componentItem;
+          return new Constructor( name, config );
       }
 
       // iterate config data
@@ -382,15 +374,15 @@ module.exports = function (grunt) {
               }
 
               // fetch appropriate component item
-              componentItem = ComponentItemFactory( type, config[type] );
+              item = ComponentItemFactory( type, config[type] );
 
               switch( action ){
                   case "create":
-                      componentItem.create();
+                      item.create();
                       break;
 
                   case "remove":
-                      componentItem.remove();
+                      item.remove();
                       break;
 
                   default:
