@@ -21,7 +21,7 @@ define( [ "react", "../actions/mainActions", "utils/react.animation" ], function
                     <h2>{locale.subTitle}</h2>
                     <p className="lead">{locale.desc}</p>
                     <p classNameName="lead">
-                        <a className="btn btn-lg btn-default" onClick={this._onStart}>{locale.startBtn}</a>
+                        <a className="btn btn-default" onClick={this._onStart}>{locale.startBtn}</a>
                     </p>
                 </div>
             );
@@ -35,7 +35,6 @@ define( [ "react", "../actions/mainActions", "utils/react.animation" ], function
 
         _onStart: function(){
             this.triggerAnimation( "fadeOutRight" );
-            //Actions.startGame();
         }
     });
 

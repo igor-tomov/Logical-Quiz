@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  overflow: auto;
+  overflow: hidden;
   white-space: nowrap;
   text-align: center;
   font-size: 0;
@@ -23,12 +23,13 @@
     text-align: left;
 
     .front-content{
-      .make-md-column( 8 );
-      .make-md-column-offset( 1 );
       .make-xs-column( 12 );
 
+      padding-left: 30px;
+      padding-right: 30px;
+
       h1{
-        font-size: 40px;
+        font-size: 42px;
         margin-left: -5px;
         letter-spacing: 1px;
       }
@@ -38,8 +39,20 @@
         margin-bottom: 15px;
       }
 
+      p {
+        text-align: justify;
+      }
+
+      .animation-duration( .7s );
 
       @media (min-width: @screen-sm) {
+        .make-md-column( 8 );
+        .make-md-column-offset( 1 );
+
+        .btn-default{
+          .btn-lg()
+        }
+
         h1{
           font-size: 90px;
           letter-spacing: 3px;
@@ -50,10 +63,6 @@
           margin-bottom: 10px;
         }
       }
-    }
-
-    .animated{
-      .animation-duration( .7s );
     }
   }
 }
