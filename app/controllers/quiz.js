@@ -2,7 +2,7 @@ var express     = require('express'),
     router      = express.Router(),
     fs          = require("fs"),
     mongoose    = require('mongoose'),
-    Quiz        = mongoose.model('Quiz');
+    Quiz        = mongoose.model('QuizAsset');
 
 module.exports = function (app) {
     app.use('/', router);

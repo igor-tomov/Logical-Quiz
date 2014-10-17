@@ -1,0 +1,101 @@
+[
+    {
+        "titles": {
+            "en": "Geography",
+            "ru": "Георафия"
+        },
+        "thumbnail": "",
+        "assets": [
+            {
+                "target": 1,
+                "level": 1,
+                "cases": {
+                    "en": [
+                        "Sweden",
+                        "Switzerland",
+                        "Danish",
+                        "Norwegian"
+                    ],
+                    "ru": [
+                        "Швеция",
+                        "Швейцария",
+                        "Дания",
+                        "Норвегия"
+                    ]
+                }
+            },
+            {
+                "target": 0,
+                "level": 1,
+                "cases": {
+                    "en": [
+                        "Hungary",
+                        "Montenegro",
+                        "Serbia",
+                        "Croatia"
+                    ],
+                    "ru": [
+                        "Венгрия",
+                        "Черногория",
+                        "Сербия",
+                        "Хорватия"
+                    ]
+                }
+            },
+            {
+                "target": 2,
+                "level": 1,
+                "cases": {
+                    "en": [
+                        "Brazil",
+                        "Argentina",
+                        "Mexico",
+                        "Colombia"
+                    ],
+                    "ru": [
+                        "Бразилия",
+                        "Аргентина",
+                        "Мексика",
+                        "Колумбия"
+                    ]
+                }
+            },
+            {
+                "target": 3,
+                "level": 1,
+                "cases": {
+                    "en": [
+                        "London",
+                        "Moscow",
+                        "Paris",
+                        "New York"
+                    ],
+                    "ru": [
+                        "Лондон",
+                        "Москва",
+                        "Париж",
+                        "Нью Йорк"
+                    ]
+                }
+            },
+            {
+                "target": 2,
+                "level": 1,
+                "cases": {
+                    "en": [
+                        "Belarus",
+                        "Ukraine",
+                        "Romania",
+                        "Kazakhstan"
+                    ],
+                    "ru": [
+                        "Беларусь",
+                        "Украина",
+                        "Румыния",
+                        "Казахстан"
+                    ]
+                }
+            }
+        ]
+    }
+]
