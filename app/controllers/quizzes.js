@@ -1,6 +1,6 @@
 var express     = require('express'),
     mongoose    = require("mongoose"),
-    quizModel   = require('../models/quizzes'),
+    quizModel   = require('../models/quizAPI'),
     router      = express.Router();
 
 // Load mongoose model
@@ -42,6 +42,6 @@ router.get( "/quizzes/assets/:category_id", function( req, res ){
              .addBack(function( err, data ){
                 if (err) throw err;
 
-                sendJSON( res, data );
+                sendJSON( res, data.assets );
              });
 });

@@ -1,7 +1,37 @@
-var mongoose = require('mongoose'),
-    Schema   = mongoose.Schema;
+var mongoose  = require( 'mongoose' ),
+    constants = require( "../../config/constants.js" ),
+    Schema    = mongoose.Schema;
 
-var UNTITLED = "Untitled";
+/**
+ * Getter for locale field
+ * Syntax:
+ *      { "locale0": <value>, "locale1": <value>, ... "localeN": <value> }
+ *
+ * @param {Object} value
+ * @returns {*}
+ */
+function getLocaleField( value ){
+    var primaryLocale = constants.PRIMARY_LOCALE,
+        locale;
+
+    if ( typeof value !== "object" ){
+        return value;
+    }
+
+    if ( value.hasOwnProperty( primaryLocale ) ){
+        console.log( "ALL locale is found, value: ", value );
+        return value[primaryLocale];
+    }
+
+    locale = Object.getOwnPropertyNames( value )[0];
+
+    if ( ! locale ){
+        console.warn( "Locale field is empty object, document: ", this );
+        return value;
+    }
+
+    return value[locale];
+}
 
 /**
  * Represents single quiz asset
@@ -12,29 +42,7 @@ var QuizAsset = new Schema({
     cases: {
         type: Object,
         required: true,
-
-        /**
-         * Get cases according to first retrieved locale key
-         *
-         * @param value
-         * @returns {String}
-         */
-        get: function( value ){
-            var locale;
-
-            if ( Array.isArray( value ) ){
-                return value;
-            }
-
-            locale = Object.getOwnPropertyNames( value )[0];
-
-            if ( ! locale ){
-                console.warn( "Requested cases for '%s' locale is not found", locale );
-                return [];
-            }
-
-            return value[locale];
-        }
+        get: getLocaleField
     },
     target: {
         type: Number,
@@ -46,40 +54,23 @@ var QuizAsset = new Schema({
     }
 });
 
+QuizAsset.set('toJSON', { getters: true });
+
+/**
+ * Represents single category item
+ *
+ * @type {Schema}
+ */
 var QuizCategory = new Schema({
     title: {
         type: Object,
         required: true,
-
-        /**
-         * Get title value according to first retrieved locale key
-         *
-         * @param value
-         * @returns {String}
-         */
-        get: function( value ){
-            var locale;
-
-            if ( ! value ){
-                return value;
-            }
-
-            if ( typeof value === "string" ){
-                return value;
-            }
-            console.log( "value: ", value );
-
-            locale = Object.getOwnPropertyNames( value )[0];
-
-            if ( ! locale ){
-                console.warn( "Requested category title for '%s' locale is not found", locale );
-                return UNTITLED;
-            }
-
-            return value[locale];
-        }
+        get: getLocaleField
     },
-    thumbnail: String,
+    thumbnail: {
+        type: String,
+        default: constants.CATEGORY_DEFAULT_THUMBNAIL
+    },
     assets: [QuizAsset]
 });
 

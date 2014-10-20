@@ -1,11 +1,12 @@
-var mongoose = require( "mongoose" );
+var mongoose  = require( "mongoose" ),
+    constants = require( "../../config/constants.js" );
 
 var QuizAsset    = mongoose.model( "QuizAsset", "quizzes" ),
     QuizCategory = mongoose.model( "QuizCategory", "quizzes" );
 
 module.exports = {
     categoryList: function( locale ){
-        locale = locale || "en";
+        locale = locale || constants.DEFAULT_LOCALE;
 
         return QuizCategory.find()
                            .select( "title." + locale )
@@ -13,13 +14,13 @@ module.exports = {
     },
 
     assets: function( id, level, locale ){
-        locale = locale || "en";
+        locale = locale || constants.DEFAULT_LOCALE;
         level  = level || 1;
 
-        return QuizCategory.find()
-                           .where( "_id" ).equals( id )
+        return QuizCategory.findOne({ _id: id })
                            .where( "assets.level" ).equals( level )
-                           .select( "assets.cases." + locale )
+                           .limit( constants.QUIZ_ASSET_COUNT )
+                           .select( "assets.target assets.cases.all assets.cases." + locale )
                            .exec();
     }
 };
