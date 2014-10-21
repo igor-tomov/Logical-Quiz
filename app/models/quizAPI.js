@@ -9,7 +9,7 @@ module.exports = {
         locale = locale || constants.DEFAULT_LOCALE;
 
         return QuizCategory.find()
-                           .select( "title." + locale )
+                           .select( "thumbnail title." + locale )
                            .exec();
     },
 
