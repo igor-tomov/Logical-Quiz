@@ -1,5 +1,4 @@
 var express  = require('express'),
-    fs       = require('fs'),
     config   = require('./config/config'),
     mongoose = require('mongoose');
 
@@ -15,14 +14,6 @@ require( config.root + '/app/models/schemes' );
 
 // init Express app
 var app = express();
-
-// Load controllers
-var controllersPath = config.root + '/app/controllers';
-fs.readdirSync(controllersPath).forEach(function (file) {
-  if (file.indexOf('.js') >= 0) {
-    require(controllersPath + '/' + file)(app);
-  }
-});
 
 // apply Express config
 require('./config/express')(app, config);

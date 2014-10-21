@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 
 var favicon = require('serve-favicon');
@@ -8,42 +9,49 @@ var compress = require('compression');
 var methodOverride = require('method-override');
 
 module.exports = function(app, config) {
-  app.set('views', config.root + '/app/views');
-  app.set('view engine', 'jade');
+    app.set('views', config.root + '/app/views');
+    app.set('view engine', 'jade');
 
-  // app.use(favicon(config.root + '/public/img/favicon.ico'));
-  app.use(logger('dev'));
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: true}));
-  app.use(cookieParser());
-  app.use(compress());
-  app.use(express.static(config.root + '/public'));
-  app.use(methodOverride());
+    // app.use(favicon(config.root + '/public/img/favicon.ico'));
+    app.use(logger('dev'));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(cookieParser());
+    app.use(compress());
+    app.use(express.static(config.root + '/public'));
+    app.use(methodOverride());
 
-  app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
+    // Load app controllers
+    var controllersPath = config.root + '/app/controllers';
+    fs.readdirSync(controllersPath).forEach(function (file) {
+        if (file.indexOf('.js') >= 0) {
+            require(controllersPath + '/' + file)(app);
+        }
+    });
 
-  if(app.get('env') === 'development'){
+    app.use(function (req, res, next) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    });
+
+    if(app.get('env') === 'development'){
+        app.use(function (err, req, res) {
+          res.status(err.status || 500);
+          res.render('error', {
+            message: err.message,
+            error: err,
+            title: 'error'
+          });
+    });
+}
+
     app.use(function (err, req, res) {
-      res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
+        res.status(err.status || 500);
+        res.render('error', {
+          message: err.message,
+          error: {},
+          title: 'error'
+        });
     });
-  }
-
-  app.use(function (err, req, res) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: {},
-      title: 'error'
-    });
-  });
-
 };
