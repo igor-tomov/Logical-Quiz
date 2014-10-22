@@ -1,6 +1,5 @@
 /** @jsx React.DOM */
 define( [ "react", "../actions/mainActions", "utils/react.animation" ], function( React, Actions, CSSAnimate ){
-    console.log( CSSAnimate );
 
     var FrontContent = React.createClass({
         mixins: [ CSSAnimate ],
