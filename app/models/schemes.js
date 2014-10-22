@@ -52,7 +52,7 @@ var QuizAsset = new Schema({
         type: Number,
         default: 1
     }
-});
+}, { id: false });
 
 QuizAsset.set('toJSON', { getters: true });
 
@@ -72,7 +72,7 @@ var QuizCategory = new Schema({
         default: constants.CATEGORY_DEFAULT_THUMBNAIL
     },
     assets: [QuizAsset]
-});
+}, { id: false });
 
 QuizCategory.set('toJSON', { getters: true });
 

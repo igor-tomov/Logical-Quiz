@@ -1,6 +1,7 @@
 var express     = require('express'),
     mongoose    = require("mongoose"),
     quizModel   = require('../models/quizAPI'),
+    constants   = require( "../../config/constants.js" ),
     router      = express.Router();
 
 // Load mongoose model
@@ -29,7 +30,7 @@ module.exports = function (app) {
 });*/
 
 router.get( "/quizzes/category_list", function( req, res ){
-    quizModel.categoryList()
+    quizModel.categoryList( req.cookies[constants.LOCALE_COOKIE_NAME] )
              .addBack(function( err, data ){
                 if (err) throw err;
 
@@ -38,7 +39,7 @@ router.get( "/quizzes/category_list", function( req, res ){
 });
 
 router.get( "/quizzes/assets/:category_id", function( req, res ){
-    quizModel.assets( req.params.category_id, req.query.level )
+    quizModel.assets( req.params.category_id, req.query.level, req.cookies[constants.LOCALE_COOKIE_NAME]  )
              .addBack(function( err, data ){
                 if (err) throw err;
 
