@@ -36,10 +36,6 @@ define(function(){
             var node         = this.getDOMNode(),
                 animateEnter = this.state.animateEnter;
 
-            this.onAnimationStart = this.onAnimationStart && this.onAnimationStart.bind( this );
-            this.onAnimationIter  = this.onAnimationIter && this.onAnimationIter.bind( this );
-            this.onAnimationEnd   = this.onAnimationEnd && this.onAnimationEnd.bind( this );
-
             node.addEventListener( animationStart, this.onAnimationStart, false );
             node.addEventListener( animationIter, this.onAnimationIter, false );
             node.addEventListener( animationEnd, this.onAnimationEnd, false );
