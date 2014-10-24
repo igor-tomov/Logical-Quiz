@@ -4,7 +4,7 @@
 
 require.config({
     paths: {
-        react: "bower_components/react/react-with-addons",
+        react: "bower_components/react/react",
         reflux: "bower_components/reflux/dist/reflux"
     },
 
@@ -17,8 +17,25 @@ define( [ "underscore", "react" ], function( _, React ){
     return function( app ){
         var basePrototype = app.core.Components.Base.prototype;
 
-        // initialize touch events
-        React.initializeTouchEvents( true );
+        if ( this.document && "ontouchstart" in this.document ){
+            // initialize touch events
+            React.initializeTouchEvents( true );
+        }
+
+        /**
+         * show Aura component
+         */
+        basePrototype.show = function(){
+            this.$el[0].classList.remove( "hide" );
+        };
+
+        /**
+         * Hide Aura component and remove inner React components
+         */
+        basePrototype.hide = function(){
+            this.removeComponent();
+            this.$el[0].classList.add( "hide" );
+        };
 
         /**
          * Render React component to Aura component's element
@@ -41,6 +58,6 @@ define( [ "underscore", "react" ], function( _, React ){
          */
         basePrototype.removeComponent = function(){
             React.unmountComponentAtNode( this.$el[0] );
-        }
+        };
     }
 });
