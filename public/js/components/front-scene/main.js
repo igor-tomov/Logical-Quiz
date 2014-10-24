@@ -5,21 +5,19 @@ define( [ "constants", "./actions/mainActions", "./views/mainView" ], function( 
 
     return {
         initialize: function(){
-            this.sandbox.on( constants.FRONT_OPEN_EVENT, this.open, this );
+            this.sandbox.on( constants.FRONT_RETURN_EVENT, this.open, this );
             Actions.startGame.listen( this._onStartGame, this );
 
             this.open();
         },
 
         open: function(){
-            this.$el.removeClass( "hide" );
             this.renderComponent( view );
+            this.show();
         },
 
         _onStartGame: function(){
-            this.$el.addClass( "hide" );
-            this.removeComponent();
-
+            this.hide();
             this.sandbox.emit( constants.GAME_LAUNCH_EVENT );
         }
     }

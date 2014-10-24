@@ -1,6 +1,7 @@
 define({
 
     // Events
-    FRONT_OPEN_EVENT: "front:return",
-    GAME_LAUNCH_EVENT: "game:launch"
+    FRONT_RETURN_EVENT: "front:return",
+    GAME_LAUNCH_EVENT: "game:launch",
+    GAME_START_EVENT: "game:start"
 });

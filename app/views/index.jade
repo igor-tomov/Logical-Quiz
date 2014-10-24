@@ -23,7 +23,10 @@ body
         // END: "front-layout" component
 
         // "game-layout" component
-        include game/layout
+        section.scene.game-scene.hide(data-aura-component='game-scene')
+            #quiz-categories.quiz-categories
+            #quiz-area.quiz-area
+            #quiz-result.quiz-result
         // END: "game-layout" component
 
         // footer
