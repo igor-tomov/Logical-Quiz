@@ -6,7 +6,7 @@ define( [ "constants" ], function( constants ){
     return {
         options: {
             children: {
-                categories: "quiz-categories",
+                categories: "quiz-subjects",
                 board: "quiz-board"
             }
         },
@@ -19,7 +19,7 @@ define( [ "constants" ], function( constants ){
 
         open: function(){
             this.show();
-            this.openQuizCategories();
+            this.openQuizSubjects();
         },
 
         close: function(){
@@ -27,15 +27,15 @@ define( [ "constants" ], function( constants ){
             this.sandbox.emit( constants.FRONT_RETURN_EVENT );
         },
 
-        openQuizCategories: function(){
+        openQuizSubjects: function(){
             var childName = this.options.children.categories;
 
-            this.sandbox.start({
+            this.sandbox.start([{
                 name: childName,
                 options: {
                     el: "#" + childName
                 }
-            });
+            }]);
         },
 
         openQuizBoard: function(){
