@@ -54,11 +54,11 @@ define(function(){
         },
 
         triggerAnimation: function( animateClass ){
-            var classes  = ( this.state.className || "" ).trim().split( /\s+/ ),
-                animated;
+            var classes    = ( this.state.className || "" ).trim().split( /\s+/ ),
+                isAnimated = classes.indexOf( ANIMATE_CLASS );
 
-            if ( ( animated = classes.indexOf( ANIMATE_CLASS ) ) !== -1 ){
-                classes.splice( animated );
+            if ( isAnimated !== -1 ){
+                classes.splice( isAnimated );
             }
 
             classes.push( ANIMATE_CLASS, animateClass );
