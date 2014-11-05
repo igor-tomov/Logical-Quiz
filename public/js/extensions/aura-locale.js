@@ -1,9 +1,7 @@
-define( [ "jquery" ], function( $ ){
+define( [ "constants", "jquery" ], function( constants, $ ){
 
     /** constants */
     var LOCALE_PATH      = "/locale/",
-        DEFAULT_LOCALE   = "en",
-        COOKIE_NAME      = 'locale',
         LOCALE_EXTENSION = '.json';
 
     /**
@@ -35,7 +33,7 @@ define( [ "jquery" ], function( $ ){
 
     return function( app ){
         var basePrototype = app.core.Components.Base.prototype,
-            localeURL     = LOCALE_PATH + ( getCookie( COOKIE_NAME ) || DEFAULT_LOCALE ) + LOCALE_EXTENSION,
+            localeURL     = LOCALE_PATH + ( getCookie( constants.LOCALE_COOKIE_NAME ) || constants.DEFAULT_LOCALE ) + LOCALE_EXTENSION,
             localeStorage = {};
 
         /**

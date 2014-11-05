@@ -1,18 +1,21 @@
 /**
  * Represents "Quiz subject"
  */
-define( [ "./views/subjectsView" ], function( view ){
+define( [ "./actions/subjectActions", "./views/subjectsView" ], function( Actions, View ){
     'use strict';
     return {
         initialize: function(){
-            var subjectItem = { id: "24a34cd343fa223", title: "Sample item", thumbnail: "/img/categories/default.jpg" },
-                subjects    = [],
-                i;
+            // bind listeners to actions
+            Actions.invalidSubjectData.listen( this.onError, this );
 
-            for ( i = 0; i < 5; i++ ){
-                subjects.push( subjectItem );
-            }
+            // trigger load subjects
+            Actions.loadSubjects();
 
-            this.renderComponent( view, { items: subjects } );
+            // render component view
+            this.renderComponent( View );
+        },
+
+        onError: function( reason ){
+            this.sandbox.emit( "app:error", reason );
         }
 }});

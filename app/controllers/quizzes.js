@@ -29,7 +29,7 @@ module.exports = function (app) {
     }
 });*/
 
-router.get( "/quizzes/subjects", function( req, res ){
+router.get( "/quiz/subjects", function( req, res ){
     quizModel.categoryList( req.cookies[constants.LOCALE_COOKIE_NAME] )
              .addBack(function( err, data ){
                 if (err) throw err;
@@ -38,7 +38,7 @@ router.get( "/quizzes/subjects", function( req, res ){
              });
 });
 
-router.get( "/quizzes/subjects/:subject_id", function( req, res ){
+router.get( "/quiz/subjects/:subject_id", function( req, res ){
     quizModel.assets( req.params.subject_id, req.query.level, req.cookies[constants.LOCALE_COOKIE_NAME]  )
              .addBack(function( err, data ){
                 if (err) throw err;
