@@ -39,6 +39,7 @@ define(function(){
             node.addEventListener( animationStart, this.onAnimationStart, false );
             node.addEventListener( animationIter, this.onAnimationIter, false );
             node.addEventListener( animationEnd, this.onAnimationEnd, false );
+            node.addEventListener( animationEnd, this._clearAnimation, false );
 
             if ( animateEnter ){
                 this.triggerAnimation( animateEnter );
@@ -51,6 +52,7 @@ define(function(){
             node.removeEventListener( animationStart, this.onAnimationStart );
             node.removeEventListener( animationIter, this.onAnimationIter );
             node.removeEventListener( animationEnd, this.onAnimationEnd );
+            node.removeEventListener( animationEnd, this._clearAnimation );
         },
 
         triggerAnimation: function( animateClass ){
@@ -58,7 +60,7 @@ define(function(){
                 isAnimated = classes.indexOf( ANIMATE_CLASS );
 
             if ( isAnimated !== -1 ){
-                classes.splice( isAnimated );
+                classes.splice( isAnimated, 2 );
             }
 
             classes.push( ANIMATE_CLASS, animateClass );
@@ -66,6 +68,22 @@ define(function(){
             this.setState({
                 className: classes.join( " " )
             })
+        },
+
+        /**
+         * Remove animation-specific classes and update component state
+         */
+        _clearAnimation: function() {
+            var classes    = ( this.state.className || "" ).trim().split(/\s+/),
+                isAnimated = classes.indexOf( ANIMATE_CLASS );
+
+            if ( isAnimated !== -1 ){
+                classes.splice( isAnimated, 2 );
+
+                this.setState({
+                    className: classes.join(" ")
+                })
+            }
         }
     }
 });
