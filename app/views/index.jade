@@ -1,40 +1,60 @@
 doctype html
 html(lang='en')
     head
-        meta(charset='UTF-8')
-        meta(name='viewport', content='width=device-width')
-        title= title
-        block css
-            if env == 'production' || env == 'test'
-                link(rel='stylesheet', href='/styles/css/dist.#{version}.min.css')
-            else
-                link(rel='stylesheet', href='/styles/css/dist.#{version}.css')
-        block js
-            if env == 'production' || env == 'test'
-                script(src='/bower_components/requirejs/require.js')
-                script(src='/js/build/dist.#{version}.js')
-            else
-                script(src='http://localhost:35729/livereload.js')
-                script(src='/bower_components/requirejs/require.js', data-main='/js/main.js')
+       meta(charset='utf-8')
+       meta(http-equiv='X-UA-Compatible', content='IE=edge')
+       meta(name='viewport', content='width=device-width, initial-scale=1.0')
+       meta(name='description', content='Logical quiz')
+       meta(name='author', content='stepennwolf@gmail.com')
+       title= title
+
+       block css
+         if env == 'production' || env == 'test'
+             link(rel='stylesheet', href='/styles/css/build/main.bundle.#{version}.min.css')
+         else
+             link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+             link(rel='stylesheet', href='/bower_components/animate.css/animate.css')
+             link(rel='stylesheet', href='/styles/css/build/main.bundle.#{version}.css')
+       block js
+         if env == 'production' || env == 'test'
+             script(src='/bower_components/requirejs/require.js')
+             script(src='/js/build/dist.#{version}.js')
+         else
+             script(src='http://localhost:35729/livereload.js')
+             script(src='/bower_components/jquery/jquery.min.js')
+             script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+             //script(src='/bower_components/requirejs/require.js', data-main='/js/main.js')
 body
-    .site-wrapper
-        // "front-layout" component
-        section.scene.front-layout(data-aura-component="front-scene")
-        // END: "front-layout" component
+    //Fixed navbar
+    .navbar.navbar-default.navbar-fixed-top
+        .container
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='#') Logo
+            .navbar-collapse.collapse
+                ul.nav.navbar-nav.navbar-right
+                    li.active
+                        a(href='#') Sign In
+                    li.active
+                        a(href='#') Sign Up
+            //
+              /.nav-collapse
 
-        // "game-layout" component
-        section.scene.game-scene.hide(data-aura-component='game-scene')
-            #quiz-subjects.quiz-subjects
-            #quiz-area.quiz-area
-            #quiz-result.quiz-result
-        // END: "game-layout" component
-
-        // footer
-        footer.mastfoot
-            .inner
-                p Here should be some footer content
-        // END: footer
-
-    // "load-state" component
-    .load-state.hide(data-aura-component='load-state')
-    // END: "load-state" component
+    .front-layer(data-aura-component='front-layer')
+        .front-inner
+            .container
+                .row
+                    .front-content
+                        h1 Logical quiz
+                        h2 Welcome to logical quiz
+                        p.lead
+                            | Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
+                        p.lead
+                            button.btn.btn-theme Get started
+    footer
+        .container
+            .row
+                p Some footer content

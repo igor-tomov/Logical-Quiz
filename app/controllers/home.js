@@ -8,8 +8,7 @@ module.exports = function (app) {
   app.use('/', router);
 };
 
-router.get('/', function (req, res, next) {
-
+router.get('/', function (req, res) {
     res.render('index', {
         title: 'Logical quiz',
         version: config.pkg.version,
@@ -18,6 +17,6 @@ router.get('/', function (req, res, next) {
 });
 
 // public access to constants.js
-router.get('/js/constants.js', function (req, res, next) {
+router.get('/js/constants.js', function (req, res) {
     res.sendFile( rootPath + "/config/constants.js" );
 });

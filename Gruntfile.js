@@ -49,13 +49,19 @@ module.exports = function (grunt) {
     },
 
     less: {
-        dist: {
-            options:{
-                paths: ["public/styles"]
-            },
+        options:{
+            paths: ["public/styles"]
+        },
 
+        dist: {
             files: {
-                "public/styles/css/dist.<%= pkg.version %>.css": "public/styles/less/index.less"
+                "public/styles/css/build/main.bundle.<%= pkg.version %>.css": "public/styles/less/index.less"
+            }
+        },
+
+        dev: {
+            files: {
+                "public/styles/css/build/main.bundle.<%= pkg.version %>.css": "public/styles/less/index-dev.less"
             }
         }
     },
@@ -125,7 +131,7 @@ module.exports = function (grunt) {
 
       styles: {
           files: "public/styles/less/**/*.less",
-          tasks: [ "less:dist" ]
+          tasks: [ "less:dev" ]
       }
     }
   });
@@ -401,6 +407,6 @@ module.exports = function (grunt) {
       ));
   });
 
-  grunt.registerTask('live-server', ['less:dist', 'react:dist', 'develop', 'watch']);
+  grunt.registerTask('live-server', ['less:dev', 'react:dist', 'develop', 'watch']);
   grunt.registerTask('prod', ['less:dist', 'react:dist', 'requirejs', 'cssmin:dist']);
 };
