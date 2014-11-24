@@ -33,7 +33,7 @@ define( [ "constants", "jquery" ], function( constants, $ ){
 
     return function( app ){
         var basePrototype = app.core.Components.Base.prototype,
-            localeURL     = LOCALE_PATH + ( getCookie( constants.LOCALE_COOKIE_NAME ) || constants.DEFAULT_LOCALE ) + LOCALE_EXTENSION,
+            localeURL     = LOCALE_PATH + ( getCookie( constants.LOCALE_COOKIE_NAME ) || constants.DEFAULT_LOCALE ) + constants.LOCALE_EXTENSION,
             localeStorage = {};
 
         /**

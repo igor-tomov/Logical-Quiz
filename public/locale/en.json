@@ -1,4 +1,9 @@
 {
+    "header-layer": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up"
+    },
+
     "front-scene": {
         "mainTitle": "Logical quiz",
         "subTitle": "Welcome to awesome Logical Quiz",

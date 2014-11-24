@@ -17,6 +17,8 @@
         },
 
         render: function(){
+            var locale = this.props.locale;
+
             return (
                 <div className="navbar navbar-default navbar-fixed-top">
                     <div className="container">
@@ -29,10 +31,10 @@
                         <div className="navbar-collapse collapse">
                             <ul className="nav navbar-nav navbar-right">
                                 <li className="active">
-                                    <a href="#">Sign In</a>
+                                    <a href="#">{locale.signIn}</a>
                                 </li>
                                 <li className="active">
-                                    <a href="#">Sign Up</a>
+                                    <a href="#">{locale.signUp}</a>
                                 </li>
                             </ul>
                         </div>
