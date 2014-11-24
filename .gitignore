@@ -4,3 +4,4 @@ public/bower_components/
 public/styles/css/
 public/js/build/
 public/js/components/*/views/*.js
+public/js/new-components/*/views/*.js

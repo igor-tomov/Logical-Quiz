@@ -1,0 +1,58 @@
+.header-layer {
+  .navbar, .navbar-default {
+    font-weight: 800;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+
+    .navbar-brand {
+      height: auto;
+      font-size: 22px;
+      margin-top: 5px;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .navbar-toggle {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .navbar-default {
+    .navbar-collapse {
+      margin-top: 5px;
+
+      @media (min-width: @screen-sm) {
+        margin-top: 0;
+      }
+    }
+
+    .navbar-nav {
+      margin-bottom: 0;
+
+      > .active {
+        @media (min-width: @screen-sm) {
+          margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+
+        > a{
+          padding-top: 5px;
+          padding-bottom: 5px;
+          color: #ffffff;
+          background-color: #74cfae;
+        }
+
+        > a:hover, > a:focus{
+          color: inherit;
+        }
+      }
+    }
+  }
+}

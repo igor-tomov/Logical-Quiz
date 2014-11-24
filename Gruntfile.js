@@ -12,7 +12,7 @@ module.exports = function (grunt) {
   // config for Front-end components
   var componentConfig = {
       js: {
-          path: "public/js/components",
+          path: "public/js/new-components",
           files: [ "<%= name %>/", "<%= name %>/main.js", "<%= name %>/actions/", "<%= name %>/views/" ],
 
           template:   "/**\n" +
@@ -90,10 +90,10 @@ module.exports = function (grunt) {
             files: [
                 {
                     expand: true,
-                    cwd: "public/js/components",
-                    src: [ "*/views/*.jsx" ],
-                    dest: "public/js/components",
-                    ext: ".js"
+                    cwd: "public/js/new-components",
+                    src: [ "*/views/*.react.jsx" ],
+                    dest: "public/js/new-components",
+                    ext: ".react.js"
                 }
             ]
         }
@@ -118,7 +118,7 @@ module.exports = function (grunt) {
       },
 
       react:{
-          files: "public/js/components/*/views/*.jsx",
+          files: "public/js/new-components/*/views/*.jsx",
           tasks: [ "react:dist" ]
       },
 
