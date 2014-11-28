@@ -16,12 +16,10 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res) {
-    var locale = require( reactConfig.getLocaleFilename( req.cookies[constants.LOCALE_COOKIE_NAME] ) ); //todo: must be refactored
-
     res.render('index', {
         title: 'Logical quiz',
         version: config.pkg.version,
-        header: React.renderToString( headerView()({ locale: locale["header-layer"] }) ),
+        header: React.renderToString( headerView()({ locale: req.locale["header-layer"] }) ),
         env: process.env.NODE_ENV || "development"
     });
 });

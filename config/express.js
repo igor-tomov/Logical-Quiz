@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var constants = require('./constants');
 
 module.exports = function(app, config) {
     app.set('views', config.root + '/app/views');
@@ -20,6 +21,26 @@ module.exports = function(app, config) {
     app.use(compress());
     app.use(express.static(config.root + '/public'));
     app.use(methodOverride());
+
+
+    // Load locale files
+    var localePath = config.root + '/public/locale',
+        localeMap  = {};
+
+    fs.readdirSync(localePath).forEach(function (file) {
+        if (file.indexOf(constants.LOCALE_EXTENSION) >= 0) {
+            localeMap[ file.replace( constants.LOCALE_EXTENSION, '' ) ] = require(localePath + '/' + file);
+        }
+    });
+
+
+    // determine locale data
+    app.use(function( req, res, next ){
+        var localeName = req.cookies[constants.LOCALE_COOKIE_NAME] || constants.DEFAULT_LOCALE;
+
+        req.locale = localeMap[localeName] || localeName[constants.DEFAULT_LOCALE];
+        next();
+    });
 
     // Load app controllers
     var controllersPath = config.root + '/app/controllers';
