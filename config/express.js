@@ -35,15 +35,21 @@ module.exports = function(app, config) {
 
 
     // determine locale data
-    app.use(function( req, res, next ){
-        var localeName = req.cookies[constants.LOCALE_COOKIE_NAME] || constants.DEFAULT_LOCALE;
+    app.use(function( req, res, next ){//todo: add reading locale data from "Accept-Language"
+        var localeName = req.cookies[constants.LOCALE_COOKIE_NAME];
 
-        req.locale = localeMap[localeName] || localeName[constants.DEFAULT_LOCALE];
+        if ( localeName && localeMap[localeName] ){
+            req.locale = localeMap[localeName];
+        }else{
+            req.locale = localeMap[constants.DEFAULT_LOCALE];
+        }
+
         next();
     });
 
     // Load app controllers
     var controllersPath = config.root + '/app/controllers';
+
     fs.readdirSync(controllersPath).forEach(function (file) {
         if (file.indexOf('.js') >= 0) {
             require(controllersPath + '/' + file)(app);
